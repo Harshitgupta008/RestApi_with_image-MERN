@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 import Delete from "./img/delete.png"
 import Update from "./img/iupdate.png"
 import UpdateDate from "./UpdateDate";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Views = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -24,13 +26,14 @@ const Views = () => {
     }
     const DeleteData = async (id, cloudId) => {
         try {
+            toast.info("Processing ...")
             const response = await fetch(`/api/deleteImage/${id}/${cloudId}`, {
                 method: "DELETE",
             })
             if (response.ok) {
-                return window.alert("data Deleted")
+                return toast.success("Data Deleted")
             } else if (response.status === 401) {
-                return window.alert("data not found")
+                return toast.error("data not found")
             } else {
                 return window.alert("error found")
             }

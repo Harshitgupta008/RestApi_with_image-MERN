@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {  useNavigate, useParams } from "react-router-dom";
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const UpdateDate = () => {
     const [imagefile, setImagefile] = useState(null);
     const [data,setDate] = useState({
@@ -20,7 +21,7 @@ const UpdateDate = () => {
                 setDate({_id:fix._id,name:fix.name, image:{url:fix.image.url, cloudId : fix.image.cloudId}})            
                 setLoading(false)
             }else if(response.status === 404){
-                window.alert("user Not found");
+                toast.error("User Not Found")
                 return Navigate("/views");
             }
         } catch (error) {
@@ -47,7 +48,7 @@ const UpdateDate = () => {
                 body:formdata,
             })
             if(response.ok){
-                window.alert("Date Update");
+                toast.success("Date Updated 😊");
                 return Navigate("/views");
             }else{
                 return console.log("user not found")

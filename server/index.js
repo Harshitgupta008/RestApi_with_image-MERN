@@ -77,6 +77,7 @@ app.post("/api/sendImage", upload.single('image'), async (req, res) => {
 
 
     } catch (error) {
+        fs.unlinkSync(req.file.path);
         console.log("error in postiage part :: " + error)
         return res.status(400).send("data not send");
     }

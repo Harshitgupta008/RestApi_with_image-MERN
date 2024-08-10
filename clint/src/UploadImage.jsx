@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const UploadImage = () => {
     const [name, setName] = useState("");
     const [imagefile, setImagefile] = useState(null);
@@ -10,7 +11,7 @@ const UploadImage = () => {
         e.preventDefault();
         
         if(!imagefile || !name){
-            return window.alert("Add all field")
+            return toast.warn("Add all field")
         }
         try {
             setLoading(true)
@@ -24,18 +25,18 @@ const UploadImage = () => {
             if(response.ok){
                 setImagefile(null)
                 setName("")
-                // window.alert("send data")
+                toast.success("Data successfully added")
                 setLoading(false)
                 return Navigate("/views")
             }else{
                 setImagefile(null)
                 setName("")
                 setLoading(false)
-                return window.alert("data not submit")
+                return toast.error("data not submit")
             }
         } catch (error) {
             setLoading(false)
-            return window.alert("fetch error :: /404")
+            return toast.error("fetch error :: /404")
         }
     }
     useEffect(() => {
